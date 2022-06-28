@@ -34,21 +34,15 @@ jobs:
           password: ${{ secrets.QUAY_PASSWORD }}
           registry: quay.io
       
-      - name: Builds
+      - name: Build and Deploy
         env:
           VERSION: "${{ steps.v.outputs.version_tag }}"
         run: |
-          make manifests
           make generate
-          make build
           make docker-build
           make bundle
           make bundle-build
           make catalog-build
-      - name: Push Builds
-        env:
-          VERSION: "${{ steps.v.outputs.version_tag }}"
-        run:
           make docker-push
           make bundle-push
           make catalog-push
