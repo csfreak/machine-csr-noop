@@ -18,9 +18,6 @@ jobs:
         make fmt
         make test
         make build
-
-    - name: Test Images
-      run: |
         make docker-build
         make bundle-build
         make catalog-build
