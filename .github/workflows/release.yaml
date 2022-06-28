@@ -40,9 +40,9 @@ jobs:
         run: |
           make generate
           make podman-build
+          make podman-push
           make bundle
           make bundle-build
-          make catalog-build
-          make podman-push
           make bundle-push
+          make catalog-build
           make catalog-push

@@ -18,4 +18,3 @@ jobs:
         make podman-build
         make bundle
         make bundle-build
-        make catalog-build
