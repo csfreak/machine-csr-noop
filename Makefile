@@ -158,6 +158,7 @@ $(LOCALBIN):
 KUSTOMIZE ?= $(LOCALBIN)/kustomize
 CONTROLLER_GEN ?= $(LOCALBIN)/controller-gen
 ENVTEST ?= $(LOCALBIN)/setup-envtest
+OPERATORSDK ?= $(LOCALBIN)/operator-sdk
 
 ## Tool Versions
 KUSTOMIZE_VERSION ?= v3.8.7
@@ -178,6 +179,14 @@ $(CONTROLLER_GEN): $(LOCALBIN)
 envtest: $(ENVTEST) ## Download envtest-setup locally if necessary.
 $(ENVTEST): $(LOCALBIN)
 	GOBIN=$(LOCALBIN) go install sigs.k8s.io/controller-runtime/tools/setup-envtest@latest
+
+.PHONY: operator-sdk
+operator-sdk: $(LOCALBIN)
+	ARCH := "$(case $(uname -m) in x86_64) echo -n amd64 ;; aarch64) echo -n arm64 ;; *) echo -n $(uname -m) ;; esac)"
+	OS := "$(uname | awk '{print tolower($0)}')"
+	OPERATOR_SDK_DL_URL := "https://github.com/operator-framework/operator-sdk/releases/download/v1.22.0"
+	curl -LO $(OPERATOR_SDK_DL_URL)/operator-sdk_$(OS)_$(ARCH) -o $(LOCALBIN)/operator-sdk
+	chmod +x $(LOCALBIN)/operator-sdk
 
 .PHONY: bundle
 bundle: manifests kustomize ## Generate bundle manifests and metadata, then validate generated files.
