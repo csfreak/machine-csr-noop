@@ -163,6 +163,7 @@ OPERATORSDK ?= $(LOCALBIN)/operator-sdk
 ## Tool Versions
 KUSTOMIZE_VERSION ?= v3.8.7
 CONTROLLER_TOOLS_VERSION ?= v0.9.0
+OPERATOR_SDK_VERSION ?= v1.22.0
 
 KUSTOMIZE_INSTALL_SCRIPT ?= "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"
 .PHONY: kustomize
@@ -183,10 +184,7 @@ $(ENVTEST): $(LOCALBIN)
 .PHONY: operator-sdk
 operator-sdk: $(OPERATORSDK)
 $(OPERATORSDK): $(LOCALBIN)
-	ARCH := "$(case $(uname -m) in x86_64) echo -n amd64 ;; aarch64) echo -n arm64 ;; *) echo -n $(uname -m) ;; esac)"
-	OS := "$(uname | awk '{print tolower($0)}')"
-	OPERATOR_SDK_DL_URL := "https://github.com/operator-framework/operator-sdk/releases/download/v1.22.0"
-	curl -LO $(OPERATOR_SDK_DL_URL)/operator-sdk_$(OS)_$(ARCH) -o $(LOCALBIN)/operator-sdk
+	curl -L "https://github.com/operator-framework/operator-sdk/releases/download/$(OPERATOR_SDK_VERSION)/operator-sdk_linux_amd64" -o "$(LOCALBIN)/operator-sdk"
 	chmod +x $(OPERATORSDK)
 
 .PHONY: bundle
