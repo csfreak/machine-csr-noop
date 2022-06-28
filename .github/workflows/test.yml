@@ -15,9 +15,7 @@ jobs:
     
     - name: Test Build
       run: |
-        make fmt
-        make test
-        make build
         make docker-build
+        make bundle
         make bundle-build
         make catalog-build
