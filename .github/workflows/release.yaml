@@ -18,10 +18,10 @@ jobs:
       - name: Get Semantic Version
         id: v
         uses: PaulHatch/semantic-version@v4.0.3
-         with:
+        with:
           short_tags: false
-     
-     - name: Tag Release
+
+      - name: Tag Release
         uses: tvdias/github-tagger@v0.0.1
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
