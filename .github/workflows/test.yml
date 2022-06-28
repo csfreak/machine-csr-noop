@@ -15,7 +15,7 @@ jobs:
     
     - name: Test Build
       run: |
-        make docker-build
+        make podman-build
         make bundle
         make bundle-build
         make catalog-build

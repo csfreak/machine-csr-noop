@@ -39,10 +39,10 @@ jobs:
           VERSION: "${{ steps.v.outputs.version_tag }}"
         run: |
           make generate
-          make docker-build
+          make podman-build
           make bundle
           make bundle-build
           make catalog-build
-          make docker-push
+          make podman-push
           make bundle-push
           make catalog-push
