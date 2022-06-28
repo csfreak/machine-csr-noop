@@ -1,0 +1,28 @@
+name: Tests
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Run fmt
+      run: make fmt
+    
+    - name: Run test
+      run: make test
+
+    - name: Build Docker Image
+      run: make docker-build
+      
+    - name: Build Bundle Image
+      run: make bundle-build
