@@ -41,5 +41,4 @@ spec:
   maturity: alpha
   provider:
     name: Jason Ross
-  replaces: 0.0.1
-  version: machine-csr-noop.v0.1.10
+  replaces: machine-csr-noop.v0.1.10
